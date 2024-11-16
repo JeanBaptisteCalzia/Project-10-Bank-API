@@ -70,6 +70,7 @@ body {
   width: 200px;
 }
 
+/*here*/
 .hero {
   background-image: url('../img/bank-tree.jpeg');
   background-position: 0 -50px;
@@ -122,6 +123,8 @@ body {
     font-size: 1.2rem;
   }
 }
+
+/*Here*/
 
 .features {
   display: flex;

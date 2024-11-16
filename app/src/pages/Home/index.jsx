@@ -1,4 +1,6 @@
 import Nav from "../../components/Nav/";
+import Hero from "../../components/Hero/";
+import backgroundImageHero from "../../assets/bank-tree.jpeg";
 import "./Home.scss";
 
 function Home() {
@@ -6,7 +8,7 @@ function Home() {
     <>
       <Nav />
       <main>
-        <h1>Home page</h1>
+        <Hero backgroundImage={backgroundImageHero} />
       </main>
     </>
   );
