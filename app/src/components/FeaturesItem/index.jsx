@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import "./featuresItem.scss";
 
 function FeaturesItem({ icon, title, description }) {
@@ -9,4 +10,11 @@ function FeaturesItem({ icon, title, description }) {
     </div>
   );
 }
+
+FeaturesItem.propTypes = {
+  icon: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+};
+
 export default FeaturesItem;
