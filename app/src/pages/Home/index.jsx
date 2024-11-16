@@ -9,7 +9,7 @@ function Home() {
   return (
     <>
       <Nav />
-      <main>
+      <main className="main">
         <Hero backgroundImage={backgroundImageHero} />
         <Features />
       </main>
