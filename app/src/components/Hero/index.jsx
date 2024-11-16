@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import "./hero.scss";
 
 function Hero({ backgroundImage }) {
@@ -18,4 +19,9 @@ function Hero({ backgroundImage }) {
     </div>
   );
 }
+
+Hero.propTypes = {
+  backgroundImage: PropTypes.string.isRequired,
+};
+
 export default Hero;
