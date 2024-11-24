@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./account.scss";
 
-function Account() {
+function Account({ hasBtn }) {
   let navigate = useNavigate();
   const routeChange = () => {
     let path = "/transaction";
@@ -15,11 +15,14 @@ function Account() {
         <p className="account-amount">$2,082.79</p>
         <p className="account-amount-description">Available Balance</p>
       </div>
-      <div className="account-content-wrapper cta">
-        <button onClick={routeChange} className="transaction-button">
-          View transactions
-        </button>
-      </div>
+
+      {hasBtn ? (
+        <div className="account-content-wrapper cta">
+          <button onClick={routeChange} className="transaction-button">
+            View transactions
+          </button>
+        </div>
+      ) : null}
     </section>
   );
 }

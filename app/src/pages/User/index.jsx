@@ -17,7 +17,7 @@ function User() {
           <button className="edit-button">Edit Name</button>
         </div>
         <h2 className="sr-only">Accounts</h2>
-        <Account />
+        <Account hasBtn={true} />
       </main>
       <Footer />
     </>
