@@ -2,7 +2,10 @@ import "./Nav.scss";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/argentBankLogo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUserCircle,
+  faRightFromBracket,
+} from "@fortawesome/free-solid-svg-icons";
 
 function Nav() {
   return (
@@ -20,6 +23,10 @@ function Nav() {
           <FontAwesomeIcon icon={faUserCircle} />
           Sign In
         </NavLink>
+        {/* <NavLink to="/sign-in" className="main-nav-item">
+          <FontAwesomeIcon icon={faRightFromBracket} />
+          Sign Out
+        </NavLink> */}
       </div>
     </nav>
   );
