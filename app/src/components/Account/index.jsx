@@ -1,6 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import "./account.scss";
 
 function Account() {
+  let navigate = useNavigate();
+  const routeChange = () => {
+    let path = "/transaction";
+    navigate(path);
+  };
+
   return (
     <section className="account">
       <div className="account-content-wrapper">
@@ -9,7 +16,9 @@ function Account() {
         <p className="account-amount-description">Available Balance</p>
       </div>
       <div className="account-content-wrapper cta">
-        <button className="transaction-button">View transactions</button>
+        <button onClick={routeChange} className="transaction-button">
+          View transactions
+        </button>
       </div>
     </section>
   );
