@@ -7,33 +7,49 @@ const AccordionItem = ({ title, description, amount, balance }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="accordion-wrapper">
-      <div
-        className="accordion-wrapper__row"
+    <>
+      <tr
+        className="accordion-container__wrapper"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div className="accordion-wrapper__items">
-          <p className="accordion-wrapper__item">
-            <button
-              className={`accordion-wrapper__btn ${isOpen ? "active" : ""}`}
-            >
-              <FontAwesomeIcon icon={isOpen ? faChevronUp : faChevronDown} />
-            </button>
+        <td colSpan="4">
+          <table>
+            <tbody>
+              <tr className="accordion-container__row">
+                <td width="30%">
+                  <button
+                    className={`accordion-container__btn ${
+                      isOpen ? "active" : ""
+                    }`}
+                  >
+                    <FontAwesomeIcon
+                      icon={isOpen ? faChevronUp : faChevronDown}
+                    />
+                  </button>
 
-            {title}
-          </p>
-          <p className="accordion-wrapper__item">{description}</p>
-          <p className="accordion-wrapper__item">{amount}</p>
-          <p className="accordion-wrapper__item">{balance}</p>
-        </div>
-      </div>
-      <div className={`accordion-wrapper__content ${isOpen ? "active" : ""}`}>
-        <p>Content</p>
-        <p>Transaction Type : Electronic</p>
-        <p>Category : Food</p>
-        <p>Note</p>
-      </div>
-    </div>
+                  {title}
+                </td>
+                <td width="35%">{description}</td>
+                <td width="25%">{amount}</td>
+                <td width="10%">{balance}</td>
+              </tr>
+              {isOpen ? (
+                <tr className="accordion-container__row-expanded">
+                  <td colSpan="4">
+                    <ul>
+                      <li>Content</li>
+                      <li>Transaction Type : Electronic</li>
+                      <li>Category : Food</li>
+                      <li>Note</li>
+                    </ul>
+                  </td>
+                </tr>
+              ) : null}
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </>
   );
 };
 
@@ -45,24 +61,28 @@ function Accordion({
   accoTitle4,
 }) {
   return (
-    <div className="accordion-container">
-      <div className="accordion-container__rows">
-        <p className="accordion-container__row">{accoTitle}</p>
-        <p className="accordion-container__row">{accoTitle2}</p>
-        <p className="accordion-container__row">{accoTitle3}</p>
-        <p className="accordion-container__row">{accoTitle4}</p>
-      </div>
-
-      {accoData.map((item, index) => (
-        <AccordionItem
-          key={`${item}-${index}`}
-          title={item.date}
-          description={item.description}
-          amount={item.amount}
-          balance={item.balance}
-        />
-      ))}
-    </div>
+    <table className="accordion-container">
+      <caption></caption>
+      <thead className="accordion-container__header">
+        <tr>
+          <th width="25%">{accoTitle}</th>
+          <th width="30%">{accoTitle2}</th>
+          <th width="25%">{accoTitle3}</th>
+          <th width="20%">{accoTitle4}</th>
+        </tr>
+      </thead>
+      <tbody className="accordion-container__body">
+        {accoData.map((item, index) => (
+          <AccordionItem
+            key={`${item}-${index}`}
+            title={item.date}
+            description={item.description}
+            amount={item.amount}
+            balance={item.balance}
+          />
+        ))}
+      </tbody>
+    </table>
   );
 }
 
