@@ -1,0 +1,28 @@
+.user {
+  form {
+    label {
+      font-weight: bold;
+    }
+    input {
+      padding: 5px;
+      font-size: 1.2rem;
+      margin: 0 0.5rem 1rem 0.5rem;
+    }
+
+    .button {
+      background-color: white;
+      color: black;
+      padding: 0.5rem 1rem;
+      min-width: 8rem;
+      font-size: 1rem;
+      font-weight: 500;
+      margin: 0 0.5rem;
+      border: 0;
+
+      &.is--save {
+        background-color: #00bc77;
+        color: white;
+      }
+    }
+  }
+}
