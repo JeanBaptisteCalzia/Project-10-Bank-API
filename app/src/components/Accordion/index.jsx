@@ -16,7 +16,7 @@ const AccordionItem = ({ title, description, amount, balance }) => {
           <table>
             <tbody>
               <tr className="accordion-container__row">
-                <td width="30%">
+                <td>
                   <button
                     className={`accordion-container__btn ${
                       isOpen ? "active" : ""
@@ -29,9 +29,9 @@ const AccordionItem = ({ title, description, amount, balance }) => {
 
                   {title}
                 </td>
-                <td width="35%">{description}</td>
-                <td width="25%">{amount}</td>
-                <td width="10%">{balance}</td>
+                <td>{description}</td>
+                <td>{amount}</td>
+                <td>{balance}</td>
               </tr>
               {isOpen ? (
                 <tr className="accordion-container__row-expanded">
@@ -65,10 +65,10 @@ function Accordion({
       <caption></caption>
       <thead className="accordion-container__header">
         <tr>
-          <th width="25%">{accoTitle}</th>
-          <th width="30%">{accoTitle2}</th>
-          <th width="25%">{accoTitle3}</th>
-          <th width="20%">{accoTitle4}</th>
+          <th>{accoTitle}</th>
+          <th>{accoTitle2}</th>
+          <th>{accoTitle3}</th>
+          <th>{accoTitle4}</th>
         </tr>
       </thead>
       <tbody className="accordion-container__body">
