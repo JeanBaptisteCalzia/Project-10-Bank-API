@@ -23,11 +23,6 @@ function SignInForm() {
       return;
     }
 
-    if ("" === password) {
-      setPasswordError("Please enter a password");
-      return;
-    }
-
     if (!regex.test(userName)) {
       setUserNameError("Invalid email format");
       return;
@@ -46,7 +41,7 @@ function SignInForm() {
     <section className="sign-in-content">
       <FontAwesomeIcon className="sign-in-icon" icon={faUserCircle} />
       <h1>Sign In</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} noValidate>
         <div className="input-wrapper">
           <label htmlFor="username">Username</label>
           <input
