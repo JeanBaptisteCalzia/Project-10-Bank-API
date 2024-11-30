@@ -52,6 +52,11 @@ function Form({
 }
 
 function User() {
+  let users = {
+    firstName: "Tony",
+    lastName: "Jarvis",
+  };
+
   const [isEdit, setIsEdit] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "Tony",
@@ -83,6 +88,7 @@ function User() {
 
   function handleCancel() {
     setIsEdit(!isEdit);
+    setFormData(users);
   }
 
   return (
