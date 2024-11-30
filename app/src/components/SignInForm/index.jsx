@@ -11,6 +11,7 @@ function SignInForm() {
   const [password, setPassword] = useState("");
   const [userNameError, setUserNameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const regex = /^[\w\.=-]+@[\w\.-]+\.[\w]{2,3}$/;
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -24,6 +25,11 @@ function SignInForm() {
 
     if ("" === password) {
       setPasswordError("Please enter a password");
+      return;
+    }
+
+    if (!regex.test(userName)) {
+      setUserNameError("Invalid email format");
       return;
     }
 
@@ -44,7 +50,7 @@ function SignInForm() {
         <div className="input-wrapper">
           <label htmlFor="username">Username</label>
           <input
-            type="text"
+            type="email"
             id="username"
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
