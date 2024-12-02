@@ -1,8 +1,11 @@
 .accordion-container {
   border-collapse: collapse;
-  width: 90%;
   margin: 6rem auto 2rem auto;
   text-align: left;
+  width: 880px;
+  @media (min-width: 880px) {
+    width: 100%;
+  }
 
   &__header {
     font-weight: bold;
@@ -91,4 +94,11 @@ table {
       text-align: left;
     }
   }
+}
+
+.table-scroll {
+  position: relative;
+  width: 90%;
+  margin: 0 auto;
+  overflow-x: scroll;
 }

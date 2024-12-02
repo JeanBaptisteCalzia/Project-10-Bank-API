@@ -61,28 +61,30 @@ function Accordion({
   accoTitle4,
 }) {
   return (
-    <table className="accordion-container">
-      <caption></caption>
-      <thead className="accordion-container__header">
-        <tr>
-          <th>{accoTitle}</th>
-          <th>{accoTitle2}</th>
-          <th>{accoTitle3}</th>
-          <th>{accoTitle4}</th>
-        </tr>
-      </thead>
-      <tbody className="accordion-container__body">
-        {accoData.map((item, index) => (
-          <AccordionItem
-            key={`${item}-${index}`}
-            title={item.date}
-            description={item.description}
-            amount={item.amount}
-            balance={item.balance}
-          />
-        ))}
-      </tbody>
-    </table>
+    <div className="table-scroll">
+      <table className="accordion-container">
+        <caption></caption>
+        <thead className="accordion-container__header">
+          <tr>
+            <th>{accoTitle}</th>
+            <th>{accoTitle2}</th>
+            <th>{accoTitle3}</th>
+            <th>{accoTitle4}</th>
+          </tr>
+        </thead>
+        <tbody className="accordion-container__body">
+          {accoData.map((item, index) => (
+            <AccordionItem
+              key={`${item}-${index}`}
+              title={item.date}
+              description={item.description}
+              amount={item.amount}
+              balance={item.balance}
+            />
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
