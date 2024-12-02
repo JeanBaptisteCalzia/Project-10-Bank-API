@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../utils/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import "./signInForm.scss";
@@ -7,34 +8,46 @@ import "./signInForm.scss";
 function SignInForm() {
   let navigate = useNavigate();
 
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-  const [userNameError, setUserNameError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  const [userCredentials, setUserCredentials] = useState({
+    email: "",
+    password: "",
+  });
+  const [userNameError, setUserNameError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [userError, setUserError] = useState(false);
   const regex = /^[\w\.=-]+@[\w\.-]+\.[\w]{2,3}$/;
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    setUserNameError("");
-    setPasswordError("");
 
-    if (userName.length < 3) {
-      setUserNameError("Username must be 3 characters or longer");
+    setUserNameError(false);
+    setPasswordError(false);
+    setUserError(false);
+
+    if (!regex.test(userCredentials.email)) {
+      setUserNameError(true);
+      console.log(userCredentials.email);
       return;
     }
 
-    if (!regex.test(userName)) {
-      setUserNameError("Invalid email format");
+    if (userCredentials.password.length < 8) {
+      setPasswordError(true);
       return;
     }
 
-    if (password.length < 8) {
-      setPasswordError("The password must be 8 characters or longer");
-      return;
-    }
+    try {
+      const responseData = await loginUser(userCredentials);
 
-    let path = "/user";
-    navigate(path);
+      if (responseData.body) {
+        let path = "/user";
+        navigate(path);
+      } else {
+        setUserError(true);
+        return;
+      }
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (
@@ -47,21 +60,40 @@ function SignInForm() {
           <input
             type="email"
             id="username"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
+            value={userCredentials.email}
+            onChange={(e) =>
+              setUserCredentials({
+                ...userCredentials,
+                email: e.target.value,
+              })
+            }
           />
-          <span>{userNameError}</span>
+          {userNameError && <span>Invalid email format</span>}
         </div>
         <div className="input-wrapper">
           <label htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={userCredentials.password}
+            onChange={(e) =>
+              setUserCredentials({
+                ...userCredentials,
+                password: e.target.value,
+              })
+            }
           />
-          <span>{passwordError}</span>
+          {passwordError && (
+            <span>The password must be 8 characters or longer</span>
+          )}
         </div>
+        {userError && (
+          <div className="input-wrapper">
+            <span className="error-message">
+              Please enter a valid Username and Password
+            </span>
+          </div>
+        )}
         <div className="input-remember">
           <input type="checkbox" id="remember-me" />
           <label htmlFor="remember-me">Remember me</label>
