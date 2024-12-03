@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { loginUser } from "../../utils/api";
+// import { useNavigate } from "react-router-dom";
+// import { useAuth } from "../../utils/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import "./signInForm.scss";
 
 function SignInForm() {
-  let navigate = useNavigate();
-
+  // let navigate = useNavigate();
   const [userCredentials, setUserCredentials] = useState({
     email: "",
     password: "",
@@ -35,19 +34,23 @@ function SignInForm() {
       return;
     }
 
-    try {
-      const responseData = await loginUser(userCredentials);
+    // try {
 
-      if (responseData.body) {
-        let path = "/user";
-        navigate(path);
-      } else {
-        setUserError(true);
-        return;
-      }
-    } catch (err) {
-      console.log(err);
-    }
+    //   const responseData = await login(
+    //     userCredentials.email,
+    //     userCredentials.password
+    //   );
+
+    //   if (responseData.body) {
+    //     let path = "/user";
+    //     navigate(path);
+    //   } else {
+    //     setUserError(true);
+    //     return;
+    //   }
+    // } catch (err) {
+    //   console.log(err);
+    // }
   }
 
   return (
