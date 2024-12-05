@@ -6,8 +6,11 @@ import {
   faUserCircle,
   faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "../../utils/auth";
 
 function Nav() {
+  const { cookies, logout } = useAuth();
+
   return (
     <nav className="main-nav">
       <NavLink to="/" className="main-nav-logo">
@@ -23,10 +26,13 @@ function Nav() {
           <FontAwesomeIcon icon={faUserCircle} />
           Sign In
         </NavLink>
-        {/* <NavLink to="/sign-in" className="main-nav-item">
-          <FontAwesomeIcon icon={faRightFromBracket} />
-          Sign Out
-        </NavLink> */}
+
+        {cookies.token ? (
+          <NavLink className="main-nav-item" onClick={() => logout()}>
+            <FontAwesomeIcon icon={faRightFromBracket} />
+            Sign Out
+          </NavLink>
+        ) : null}
       </div>
     </nav>
   );
