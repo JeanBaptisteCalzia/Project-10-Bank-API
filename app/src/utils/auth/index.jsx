@@ -14,26 +14,26 @@ export const UserProvider = ({ children }) => {
   const dispatch = useDispatch();
 
   const login = async (userCredentials) => {
-    const res = await fetch(`${apiBaseUrl}/user/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(userCredentials),
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        console.log(json);
-        if (json?.token) {
-          dispatch(setter(json.token));
-        }
-      })
-      .catch((err) => {
-        console.error(err);
+    try {
+      const res = await fetch(`${apiBaseUrl}/user/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(userCredentials),
       });
 
-    // setCookies("token", res.data.token);
+      const response = await res.json();
+
+      if (response.body?.token) {
+        dispatch(setter(response.body.token));
+        setCookies("token", response.body.token);
+        navigate("/user");
+      }
+    } catch (err) {
+      console.error("Erreur :", err);
+    }
   };
 
   const logout = () => {
