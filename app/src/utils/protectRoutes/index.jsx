@@ -1,8 +1,8 @@
 import { Outlet, Navigate } from "react-router-dom";
-import { useAuth } from "../auth";
+import { useCookies } from "react-cookie";
 
 export const ProtectRoutes = () => {
-  const { cookies } = useAuth();
+  const [cookies] = useCookies();
 
   return cookies.token ? <Outlet /> : <Navigate to="/sign-in" exact />;
 };

@@ -6,10 +6,17 @@ import {
   faUserCircle,
   faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
-import { useAuth } from "../../utils/auth";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 
 function Nav() {
-  const { cookies, logout } = useAuth();
+  const [cookies, setCookies, removeCookie] = useCookies();
+  const navigate = useNavigate();
+
+  const logout = () => {
+    ["token", "name"].forEach((obj) => removeCookie(obj));
+    navigate("/sign-in");
+  };
 
   return (
     <nav className="main-nav">

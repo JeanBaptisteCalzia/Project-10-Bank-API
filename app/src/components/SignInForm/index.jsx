@@ -1,13 +1,15 @@
 import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../utils/auth";
+import { login } from "../../utils/api";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import "./signInForm.scss";
 
 function SignInForm() {
-  // let navigate = useNavigate();
-  const user = useAuth();
+  const [cookies, setCookies, removeCookie] = useCookies();
+  const navigate = useNavigate();
+
   const [userCredentials, setUserCredentials] = useState({
     email: "",
     password: "",
@@ -15,7 +17,7 @@ function SignInForm() {
   const [userNameError, setUserNameError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [userError, setUserError] = useState(false);
-  const regex = /^[\w\.=-]+@[\w\.-]+\.[\w]{2,3}$/;
+  const regex = /^[\w.=-]+@[\w.-]+\.[\w]{2,3}$/;
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -35,7 +37,11 @@ function SignInForm() {
       return;
     }
 
-    user.login(userCredentials);
+    const token = await login(userCredentials);
+    if (token) {
+      setCookies("token", token);
+      navigate("/user");
+    }
   }
 
   return (
