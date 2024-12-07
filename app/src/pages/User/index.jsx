@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Nav from "../../components/Nav/";
 import Account from "../../components/Account/";
 import Footer from "../../components/Footer/";
+import { getUserProfile } from "../../utils/api/";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 import "./user.scss";
 
 function Form({
@@ -63,6 +66,8 @@ function User() {
     lastName: "Jarvis",
   });
   const [isInputError, setIsInputError] = useState(false);
+  const [cookies, setCookies, removeCookie] = useCookies();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -90,6 +95,16 @@ function User() {
     setIsEdit(!isEdit);
     setFormData(users);
   }
+
+  useEffect(() => {
+    const token = cookies.token;
+
+    if (!token) {
+      navigate("/sign-in");
+    } else {
+      getUserProfile(token);
+    }
+  }, [cookies.token, navigate]);
 
   return (
     <>
