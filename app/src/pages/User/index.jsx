@@ -78,18 +78,19 @@ function User() {
 
   function handleSubmit(event) {
     event.preventDefault();
+    setIsInputError(false);
     if (formData.firstName.length < 3 || formData.lastName.length < 3) {
       setIsInputError(true);
     } else {
       const token = cookies.token;
       setIsEdit(!isEdit);
-      updateUserProfile(token, setFormData(formData));
+      updateUserProfile(token, formData);
     }
   }
 
   function handleCancel() {
+    setIsInputError(false);
     setIsEdit(!isEdit);
-    setFormData(formData);
   }
 
   useEffect(() => {
