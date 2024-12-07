@@ -41,6 +41,8 @@ function SignInForm() {
     if (token) {
       setCookies("token", token);
       navigate("/user");
+    } else {
+      setUserError(true);
     }
 
     if (isRemembered) {
