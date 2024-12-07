@@ -29,6 +29,12 @@
     margin-right: 1.5rem;
   }
 
+  &__row {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
   &__row-expanded {
     ul {
       list-style-type: none;
@@ -48,10 +54,6 @@
 
   &__wrapper {
     border-bottom: 1px solid #12002b;
-
-    &:hover {
-      cursor: pointer;
-    }
 
     > td {
       padding: 1rem;

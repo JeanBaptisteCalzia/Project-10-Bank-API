@@ -1,0 +1,43 @@
+.edit-form {
+  .input-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 0;
+
+    label {
+      font-weight: 400;
+      margin-right: 0.5rem;
+    }
+
+    input {
+      margin-right: 1rem;
+    }
+
+    p {
+      margin-right: 0.5rem;
+    }
+
+    i {
+      cursor: pointer;
+    }
+  }
+
+  .button {
+    font-weight: bold;
+    padding: 10px;
+    margin: 0 0.5rem;
+
+    &.is--save {
+      border-color: #00bc77;
+      background-color: #00bc77;
+      color: #fff;
+    }
+    &.is--cancel {
+      border-color: black;
+      background-color: white;
+      color: black;
+    }
+  }
+}
