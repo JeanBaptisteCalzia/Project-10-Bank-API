@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Nav from "../../components/Nav/";
 import Account from "../../components/Account/";
 import Footer from "../../components/Footer/";
-import { getUserProfile } from "../../utils/api/";
+import { getUserProfile, updateUserProfile } from "../../utils/api/";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import "./user.scss";
@@ -55,11 +55,6 @@ function Form({
 }
 
 function User() {
-  let users = {
-    firstName: "Tony",
-    lastName: "Jarvis",
-  };
-
   const [isEdit, setIsEdit] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "Tony",
@@ -86,14 +81,15 @@ function User() {
     if (formData.firstName.length < 3 || formData.lastName.length < 3) {
       setIsInputError(true);
     } else {
-      setFormData(formData);
+      const token = cookies.token;
       setIsEdit(!isEdit);
+      updateUserProfile(token, setFormData(formData));
     }
   }
 
   function handleCancel() {
     setIsEdit(!isEdit);
-    setFormData(users);
+    setFormData(formData);
   }
 
   useEffect(() => {

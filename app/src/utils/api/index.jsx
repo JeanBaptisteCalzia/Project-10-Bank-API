@@ -34,3 +34,21 @@ export const getUserProfile = async (token) => {
     console.error("Erreur :", err);
   }
 };
+
+export const updateUserProfile = async (token, userData) => {
+  try {
+    const res = await fetch(`${apiBaseUrl}/user/profile`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(userData),
+    });
+
+    const response = await res.json();
+    return response;
+  } catch (err) {
+    console.error("Erreur :", err);
+  }
+};
