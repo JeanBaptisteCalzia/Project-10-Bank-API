@@ -8,6 +8,7 @@ import "./signInForm.scss";
 
 function SignInForm() {
   const [cookies, setCookies, removeCookie] = useCookies();
+  const [isRemembered, setIsRemembered] = useState(false);
   const navigate = useNavigate();
 
   const [userCredentials, setUserCredentials] = useState({
@@ -28,7 +29,6 @@ function SignInForm() {
 
     if (!regex.test(userCredentials.email)) {
       setUserNameError(true);
-      console.log(userCredentials.email);
       return;
     }
 
@@ -41,6 +41,16 @@ function SignInForm() {
     if (token) {
       setCookies("token", token);
       navigate("/user");
+    }
+
+    if (isRemembered) {
+      let expirationDate = new Date();
+      expirationDate.setDate(expirationDate.getDate() + 15);
+
+      setCookies("token", token, {
+        expires: expirationDate,
+        // httpOnly: true,
+      });
     }
   }
 
@@ -89,7 +99,12 @@ function SignInForm() {
           </div>
         )}
         <div className="input-remember">
-          <input type="checkbox" id="remember-me" />
+          <input
+            type="checkbox"
+            id="remember-me"
+            checked={isRemembered}
+            onChange={() => setIsRemembered(!isRemembered)}
+          />
           <label htmlFor="remember-me">Remember me</label>
         </div>
         <button type="submit" className="sign-in-button">
