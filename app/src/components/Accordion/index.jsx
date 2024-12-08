@@ -4,8 +4,31 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import "./accordion.scss";
 
+const data = [
+  {
+    title: "Category :",
+  },
+  {
+    title: "Note :",
+  },
+];
+
 const AccordionItem = ({ title, description, amount, balance }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  const handleItemClick = (index) => {
+    setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
+
+  const handleCancel = () => {
+    setActiveIndex(!activeIndex);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setActiveIndex(!activeIndex);
+  };
 
   return (
     <>
@@ -39,12 +62,17 @@ const AccordionItem = ({ title, description, amount, balance }) => {
                   <td colSpan="4">
                     <ul>
                       <li>Transaction Type : Electronic</li>
-                      <li>
-                        <EditForm title="Category :" />
-                      </li>
-                      <li>
-                        <EditForm title="Note :" />
-                      </li>
+                      {data.map((item, index) => (
+                        <li key={index}>
+                          <EditForm
+                            title={item.title}
+                            isOpen={activeIndex === index}
+                            onClick={() => handleItemClick(index)}
+                            onCancel={handleCancel}
+                            onSubmit={handleSubmit}
+                          />
+                        </li>
+                      ))}
                     </ul>
                   </td>
                 </tr>
