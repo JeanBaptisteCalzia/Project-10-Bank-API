@@ -43,6 +43,14 @@
       text-align: left;
     }
 
+    form {
+      .button {
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+
     td {
       width: 100%;
     }

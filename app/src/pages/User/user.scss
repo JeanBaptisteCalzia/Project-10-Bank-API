@@ -1,4 +1,11 @@
 .user {
+  .edit-button,
+  .transaction-button {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
   form {
     label {
       font-weight: bold;
@@ -18,6 +25,10 @@
       font-weight: 500;
       margin: 0 0.5rem;
       border: 0;
+
+      &:hover {
+        cursor: pointer;
+      }
 
       &.is--save {
         background-color: #00bc77;
