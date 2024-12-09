@@ -8,10 +8,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Nav() {
   const [cookies, setCookies, removeCookie] = useCookies();
   const navigate = useNavigate();
+  const { firstName } = useSelector((state) => state.user);
 
   const logout = () => {
     ["token", "name"].forEach((obj) => removeCookie(obj));
@@ -31,7 +33,7 @@ function Nav() {
       <div>
         <NavLink to="/sign-in" className="main-nav-item">
           <FontAwesomeIcon icon={faUserCircle} />
-          Sign In
+          {cookies.token ? `${firstName}` : `Sign In`}
         </NavLink>
 
         {cookies.token ? (
