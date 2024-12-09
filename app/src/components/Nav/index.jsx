@@ -31,10 +31,17 @@ function Nav() {
         <h1 className="sr-only">Argent Bank</h1>
       </NavLink>
       <div>
-        <NavLink to="/sign-in" className="main-nav-item">
-          <FontAwesomeIcon icon={faUserCircle} />
-          {cookies.token ? `${firstName}` : `Sign In`}
-        </NavLink>
+        {cookies.token ? (
+          <NavLink to="/user" className="main-nav-item">
+            <FontAwesomeIcon icon={faUserCircle} />
+            {firstName}
+          </NavLink>
+        ) : (
+          <NavLink to="/sign-in" className="main-nav-item">
+            <FontAwesomeIcon icon={faUserCircle} />
+            Sign In
+          </NavLink>
+        )}
 
         {cookies.token ? (
           <NavLink className="main-nav-item" onClick={() => logout()}>
