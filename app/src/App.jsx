@@ -5,25 +5,25 @@ import User from "./pages/User/";
 import Transaction from "./pages/Transaction/";
 import Error from "./components/Error/";
 import { ProtectRoutes } from "./utils/protectRoutes/";
-// import { store } from "./redux/store";
-// import { Provider } from "react-redux";
+import store from "./redux/store";
+import { Provider } from "react-redux";
 import "./App.scss";
 
 function App() {
   return (
-    // <Provider store={store}>
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route element={<ProtectRoutes />}>
-          <Route path="/user" element={<User />} />
-          <Route path="/transaction" element={<Transaction />} />
-        </Route>
-        <Route path="*" element={<Error />} />
-      </Routes>
-    </Router>
-    // </Provider>
+    <Provider store={store}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route element={<ProtectRoutes />}>
+            <Route path="/user" element={<User />} />
+            <Route path="/transaction" element={<Transaction />} />
+          </Route>
+          <Route path="*" element={<Error />} />
+        </Routes>
+      </Router>
+    </Provider>
   );
 }
 

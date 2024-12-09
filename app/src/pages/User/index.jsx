@@ -6,6 +6,11 @@ import { getUserProfile, updateUserProfile } from "../../utils/api/";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import "./user.scss";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  editFirstName as editFirstNameAction,
+  editLastName as editLastNameAction,
+} from "../../redux/userSlice";
 
 function Form({
   onChange,
@@ -24,7 +29,7 @@ function Form({
         type="text"
         id="firstName"
         name="firstName"
-        placeholder="Tony"
+        placeholder={valueFirstName}
         value={valueFirstName}
         onChange={onChange}
       />
@@ -35,7 +40,7 @@ function Form({
         type="text"
         id="lastName"
         name="lastName"
-        placeholder="Jarvis"
+        placeholder={valueLastName}
         value={valueLastName}
         onChange={onChange}
       />
@@ -55,13 +60,17 @@ function Form({
 }
 
 function User() {
+  const { firstName, lastName } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
   const [isEdit, setIsEdit] = useState(false);
   const [formData, setFormData] = useState({
-    firstName: "Tony",
-    lastName: "Jarvis",
+    firstName: "",
+    lastName: "",
   });
   const [isInputError, setIsInputError] = useState(false);
   const [cookies, setCookies, removeCookie] = useCookies();
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -76,22 +85,24 @@ function User() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  function handleSubmit(event) {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
     setIsInputError(false);
     if (formData.firstName.length < 3 || formData.lastName.length < 3) {
       setIsInputError(true);
     } else {
-      const token = cookies.token;
+      // const token = cookies.token;
       setIsEdit(!isEdit);
-      updateUserProfile(token, formData);
+      dispatch(editFirstNameAction(formData.firstName));
+      dispatch(editLastNameAction(formData.lastName));
+      // updateUserProfile(token, formData);
     }
-  }
+  };
 
-  function handleCancel() {
+  const handleCancel = () => {
     setIsInputError(false);
     setIsEdit(!isEdit);
-  }
+  };
 
   useEffect(() => {
     const token = cookies.token;
@@ -111,7 +122,7 @@ function User() {
           <h1>
             Welcome back
             <br />
-            {!isEdit ? `${formData.firstName} ${formData.lastName} !` : null}
+            {!isEdit ? `${firstName} ${lastName} !` : null}
           </h1>
           {isEdit ? (
             <Form
