@@ -91,11 +91,11 @@ function User() {
     if (formData.firstName.length < 3 || formData.lastName.length < 3) {
       setIsInputError(true);
     } else {
-      // const token = cookies.token;
+      const token = cookies.token;
       setIsEdit(!isEdit);
       dispatch(editFirstNameAction(formData.firstName));
       dispatch(editLastNameAction(formData.lastName));
-      // updateUserProfile(token, formData);
+      updateUserProfile(token, formData);
     }
   };
 
