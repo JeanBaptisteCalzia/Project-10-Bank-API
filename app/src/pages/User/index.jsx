@@ -67,8 +67,8 @@ function User() {
 
   const [isEdit, setIsEdit] = useState(false);
   const [formData, setFormData] = useState({
-    firstName: "Tony",
-    lastName: "Jarvis",
+    firstName: firstName,
+    lastName: lastName,
   });
   const [isInputError, setIsInputError] = useState(false);
   const [cookies, setCookies, removeCookie] = useCookies();
