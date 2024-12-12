@@ -79,8 +79,10 @@ function User() {
     const name = e.target.name;
     const value = e.target.value;
 
-    setFormData((data) => ({
-      ...data,
+    // We need to spread the previous state and change the one we're targeting,
+    // so other data cannot be lost.
+    setFormData((prevState) => ({
+      ...prevState,
       [name]: value,
     }));
 
