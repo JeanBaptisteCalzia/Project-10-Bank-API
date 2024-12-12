@@ -60,8 +60,10 @@ function Form({
 }
 
 function User() {
-  const { firstName, lastName } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const { firstName, lastName, isLoading, isError } = useSelector(
+    (state) => state.user
+  );
 
   const [isEdit, setIsEdit] = useState(false);
   const [formData, setFormData] = useState({
@@ -110,40 +112,52 @@ function User() {
     if (!token) {
       navigate("/sign-in");
     } else {
-      getUserProfile(token);
+      dispatch(getUserProfile(token));
     }
-  }, [cookies.token, navigate]);
+  }, [cookies.token, navigate, dispatch]);
 
   return (
     <>
       <Nav />
-      <main className="main bg-dark user">
-        <div className="header">
-          <h1>
-            Welcome back
-            <br />
-            {!isEdit ? `${firstName} ${lastName} !` : null}
-          </h1>
-          {isEdit ? (
-            <Form
-              onChange={handleChange}
-              onSubmit={handleSubmit}
-              onCancel={handleCancel}
-              errorMessage={isInputError}
-              valueFirstName={formData.firstName}
-              valueLastName={formData.lastName}
-            />
-          ) : null}
+      {isLoading
+        ? `Loading...`
+        : isError
+        ? `No user...`
+        : firstName &&
+          lastName && (
+            <>
+              <main className="main bg-dark user">
+                <div className="header">
+                  <h1>
+                    Welcome back
+                    <br />
+                    {!isEdit ? `${firstName} ${lastName} !` : null}
+                  </h1>
+                  {isEdit ? (
+                    <Form
+                      onChange={handleChange}
+                      onSubmit={handleSubmit}
+                      onCancel={handleCancel}
+                      errorMessage={isInputError}
+                      valueFirstName={formData.firstName}
+                      valueLastName={formData.lastName}
+                    />
+                  ) : null}
 
-          {!isEdit ? (
-            <button className="edit-button" onClick={() => setIsEdit(!isEdit)}>
-              Edit Name
-            </button>
-          ) : null}
-        </div>
-        <h2 className="sr-only">Accounts</h2>
-        <Account hasBtn={true} />
-      </main>
+                  {!isEdit ? (
+                    <button
+                      className="edit-button"
+                      onClick={() => setIsEdit(!isEdit)}
+                    >
+                      Edit Name
+                    </button>
+                  ) : null}
+                </div>
+                <h2 className="sr-only">Accounts</h2>
+                <Account hasBtn={true} />
+              </main>
+            </>
+          )}
       <Footer />
     </>
   );
