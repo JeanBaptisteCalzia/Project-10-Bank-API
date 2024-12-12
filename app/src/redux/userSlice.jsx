@@ -25,8 +25,6 @@ const userSlice = createSlice({
       state.isLoading = false;
       state.firstName = payload.body.firstName;
       state.lastName = payload.body.lastName;
-
-      console.log(payload.body.firstName);
     });
     builder.addCase(getUserProfile.rejected, (state) => {
       state.isError = true;
@@ -35,5 +33,11 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
-export const { editFirstName, editLastName, isLoading, isError } =
-  userSlice.actions;
+export const {
+  firstName,
+  lastName,
+  editFirstName,
+  editLastName,
+  isLoading,
+  isError,
+} = userSlice.actions;
