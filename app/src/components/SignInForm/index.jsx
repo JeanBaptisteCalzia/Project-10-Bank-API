@@ -66,6 +66,7 @@ function SignInForm() {
           <input
             type="email"
             id="username"
+            name="username"
             value={userCredentials.email}
             onChange={(e) =>
               setUserCredentials({
@@ -81,6 +82,7 @@ function SignInForm() {
           <input
             type="password"
             id="password"
+            name="password"
             value={userCredentials.password}
             onChange={(e) =>
               setUserCredentials({
