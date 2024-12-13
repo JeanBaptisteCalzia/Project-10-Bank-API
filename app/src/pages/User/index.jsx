@@ -118,7 +118,7 @@ function User() {
       formData.firstName = firstName;
       formData.lastName = lastName;
     }
-  }, [cookies.token, navigate, dispatch, formData, firstName, lastName]);
+  }, [cookies.token, navigate, dispatch, firstName, lastName]);
 
   return (
     <>
