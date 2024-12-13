@@ -8,7 +8,7 @@ const editFormFieldSlice = createSlice({
   },
   reducers: {
     editInputCategory: (state, action) => {
-      state.input = action.payload;
+      state.category = action.payload;
     },
     editInputNote: (state, action) => {
       state.note = action.payload;

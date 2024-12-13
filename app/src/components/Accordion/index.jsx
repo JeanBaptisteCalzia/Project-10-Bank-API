@@ -2,20 +2,36 @@ import { useState } from "react";
 import EditForm from "../../components/EditForm/";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  editInputCategory as editInputCategoryAction,
+  editInputNote as editInputNoteAction,
+} from "../../redux/editFormFieldSlice";
 import "./accordion.scss";
 
-const data = [
-  {
-    title: "Category :",
-  },
-  {
-    title: "Note :",
-  },
-];
-
 const AccordionItem = ({ title, description, amount, balance }) => {
+  const dispatch = useDispatch();
+  const { category, note } = useSelector((state) => state.editFormField);
   const [isOpen, setIsOpen] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(false);
+  const [formData, setFormData] = useState({
+    category: category,
+    note: note,
+  });
+
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    // We need to spread the previous state and change the one we're targeting,
+    // so other data cannot be lost.
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleItemClick = (index) => {
     setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
@@ -27,6 +43,8 @@ const AccordionItem = ({ title, description, amount, balance }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(editInputCategoryAction(formData.category));
+    dispatch(editInputNoteAction(formData.note));
     setActiveIndex(!activeIndex);
   };
 
@@ -62,17 +80,30 @@ const AccordionItem = ({ title, description, amount, balance }) => {
                   <td colSpan="4">
                     <ul>
                       <li>Transaction Type : Electronic</li>
-                      {data.map((item, index) => (
-                        <li key={index}>
-                          <EditForm
-                            title={item.title}
-                            isOpen={activeIndex === index}
-                            onClick={() => handleItemClick(index)}
-                            onCancel={handleCancel}
-                            onSubmit={handleSubmit}
-                          />
-                        </li>
-                      ))}
+                      <li>
+                        <EditForm
+                          title={"Category :"}
+                          id={"category"}
+                          isOpen={activeIndex === 1}
+                          onClick={() => handleItemClick(1)}
+                          onCancel={handleCancel}
+                          onSubmit={handleSubmit}
+                          onChange={handleChange}
+                          value={formData.category}
+                        />
+                      </li>
+                      <li>
+                        <EditForm
+                          title={"Note :"}
+                          id={"note"}
+                          isOpen={activeIndex === 2}
+                          onClick={() => handleItemClick(2)}
+                          onCancel={handleCancel}
+                          onSubmit={handleSubmit}
+                          onChange={handleChange}
+                          value={formData.note}
+                        />
+                      </li>
                     </ul>
                   </td>
                 </tr>

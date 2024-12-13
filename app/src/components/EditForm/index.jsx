@@ -1,22 +1,24 @@
-import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import "./editForm.scss";
 
-function EditForm({ title, isOpen, onClick, onCancel, onSubmit }) {
-  const [formInput, setFormInput] = useState("");
-
-  const handleChange = (e) => {
-    setFormInput(e.target.value);
-  };
-
+function EditForm({
+  title,
+  id,
+  isOpen,
+  onClick,
+  onCancel,
+  onSubmit,
+  onChange,
+  value,
+}) {
   return (
     <form onSubmit={onSubmit} noValidate className="edit-form">
       <div className="input-wrapper">
         <label htmlFor={title}>{title}</label>
         {!isOpen ? (
           <>
-            {formInput && <p>{formInput}</p>}
+            {value && <p>{value}</p>}
             <i onClick={onClick}>
               <FontAwesomeIcon icon={faPenToSquare} />
             </i>
@@ -26,10 +28,10 @@ function EditForm({ title, isOpen, onClick, onCancel, onSubmit }) {
           <>
             <input
               type="text"
-              id={title}
-              name={title}
-              value={formInput}
-              onChange={handleChange}
+              id={id}
+              name={id}
+              value={value}
+              onChange={onChange}
             />
             <br />
             <button className="button is--cancel" onClick={onCancel}>
