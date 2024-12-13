@@ -1,21 +1,21 @@
 import { useNavigate } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import "./account.scss";
 
-function Account({ hasBtn }) {
+function Account({ id, hasBtn, title, amount, description }) {
   let navigate = useNavigate();
   const routeChange = () => {
-    let path = "/transaction";
+    let path = `/transaction/${id}`;
     navigate(path);
   };
 
   return (
-    <section className="account">
+    <section key={id} className="account">
       <div className="account-content-wrapper">
-        <h3 className="account-title">Argent Bank Checking (x8349)</h3>
-        <p className="account-amount">$2,082.79</p>
-        <p className="account-amount-description">Available Balance</p>
+        <h3 className="account-title">{title}</h3>
+        <p className="account-amount">{amount}</p>
+        <p className="account-amount-description">{description}</p>
       </div>
-
       {hasBtn ? (
         <div className="account-content-wrapper cta">
           <button onClick={routeChange} className="transaction-button">

@@ -18,7 +18,7 @@ function App() {
           <Route path="/sign-in" element={<SignIn />} />
           <Route element={<ProtectRoutes />}>
             <Route path="/user" element={<User />} />
-            <Route path="/transaction" element={<Transaction />} />
+            <Route path="/transaction/:id" element={<Transaction />} />
           </Route>
           <Route path="*" element={<Error />} />
         </Routes>

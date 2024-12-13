@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Nav from "../../components/Nav/";
 import Account from "../../components/Account/";
 import Footer from "../../components/Footer/";
+import { accountData } from "../../data/accountData";
 import { getUserProfile, updateUserProfile } from "../../utils/api/";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
@@ -157,7 +158,17 @@ function User() {
               ) : null}
             </div>
             <h2 className="sr-only">Accounts</h2>
-            <Account hasBtn={true} />
+            {accountData.map(({ id, title, amount, description }) => (
+              <Account
+                key={id}
+                id={id}
+                hasBtn={true}
+                title={title}
+                amount={amount}
+                description={description}
+                // accountData={accountData}
+              />
+            ))}
           </main>
         </>
       )}
