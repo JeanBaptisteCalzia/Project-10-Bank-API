@@ -115,8 +115,10 @@ function User() {
       navigate("/sign-in");
     } else {
       dispatch(getUserProfile(token));
+      formData.firstName = firstName;
+      formData.lastName = lastName;
     }
-  }, [cookies.token, navigate, dispatch]);
+  }, [cookies.token, navigate, dispatch, formData, firstName, lastName]);
 
   return (
     <>
