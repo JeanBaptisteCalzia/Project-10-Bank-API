@@ -166,7 +166,6 @@ function User() {
                 title={title}
                 amount={amount}
                 description={description}
-                // accountData={accountData}
               />
             ))}
           </main>

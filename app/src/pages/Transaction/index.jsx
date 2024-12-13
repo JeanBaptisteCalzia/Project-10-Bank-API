@@ -19,8 +19,6 @@ function Transaction() {
     (transData) => transData.id == transactionId
   );
 
-  console.log(currentTransactionArray);
-
   if (currentId.toString() !== transactionId) {
     return <p>No data</p>;
   } else {

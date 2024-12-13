@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-// import { useParams } from "react-router-dom";
 import "./account.scss";
 
 function Account({ id, hasBtn, title, amount, description }) {
