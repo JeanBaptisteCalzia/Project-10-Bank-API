@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import EditForm from "../../components/EditForm/";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
@@ -39,6 +39,10 @@ const AccordionItem = ({ title, description, amount, balance }) => {
 
   const handleCancel = () => {
     setActiveIndex(!activeIndex);
+    setFormData({
+      category: category,
+      note: note,
+    });
   };
 
   const handleSubmit = (e) => {
@@ -47,6 +51,11 @@ const AccordionItem = ({ title, description, amount, balance }) => {
     dispatch(editInputNoteAction(formData.note));
     setActiveIndex(!activeIndex);
   };
+
+  useEffect(() => {
+    formData.category = category;
+    formData.note = note;
+  }, [category, note]);
 
   return (
     <>
