@@ -106,6 +106,8 @@ function User() {
 
   const handleCancel = () => {
     setIsInputError(false);
+    formData.firstName = firstName;
+    formData.lastName = lastName;
     setIsEdit(!isEdit);
   };
 
