@@ -35,6 +35,10 @@ const AccordionItem = ({ title, description, amount, balance }) => {
 
   const handleItemClick = (index) => {
     setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
+    setFormData({
+      category: category,
+      note: note,
+    });
   };
 
   const handleCancel = () => {
