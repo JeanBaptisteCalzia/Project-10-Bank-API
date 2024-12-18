@@ -1,4 +1,5 @@
 import "./Nav.scss";
+import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/argentBankLogo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,17 +9,29 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getUserProfile } from "../../utils/api/";
 
 function Nav() {
   const [cookies, setCookies, removeCookie] = useCookies();
   const navigate = useNavigate();
   const { firstName } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   const logout = () => {
     ["token", "name"].forEach((obj) => removeCookie(obj));
     navigate("/sign-in");
   };
+
+  useEffect(() => {
+    const token = cookies.token;
+
+    if (!token) {
+      navigate("/sign-in");
+    } else {
+      dispatch(getUserProfile(token));
+    }
+  }, [cookies.token, navigate, dispatch, firstName]);
 
   return (
     <nav className="main-nav">
