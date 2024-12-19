@@ -18,7 +18,7 @@ function SignInForm() {
   const [userNameError, setUserNameError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [userError, setUserError] = useState(false);
-  const regex = /^[\w.=-]+@[\w.-]+\.[\w]{2,3}$/;
+  const regex = /^[\w.=-]+@[\w.-]+\.[\w]{2,}$/;
 
   async function handleSubmit(event) {
     event.preventDefault();

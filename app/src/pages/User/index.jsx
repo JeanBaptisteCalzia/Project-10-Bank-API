@@ -3,9 +3,8 @@ import Nav from "../../components/Nav/";
 import Account from "../../components/Account/";
 import Footer from "../../components/Footer/";
 import { accountData } from "../../data/accountData";
-import { getUserProfile, updateUserProfile } from "../../utils/api/";
+import { updateUserProfile } from "../../utils/api/";
 import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
 import "./user.scss";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -74,8 +73,6 @@ function User() {
   const [isInputError, setIsInputError] = useState(false);
   const [cookies, setCookies, removeCookie] = useCookies();
 
-  const navigate = useNavigate();
-
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -113,15 +110,11 @@ function User() {
 
   useEffect(() => {
     const token = cookies.token;
-
-    if (!token) {
-      navigate("/sign-in");
-    } else {
-      dispatch(getUserProfile(token));
+    if (token) {
       formData.firstName = firstName;
       formData.lastName = lastName;
     }
-  }, [cookies.token, navigate, dispatch, firstName, lastName]);
+  }, [cookies.token, firstName, lastName]);
 
   return (
     <>
@@ -148,16 +141,14 @@ function User() {
                   valueFirstName={formData.firstName}
                   valueLastName={formData.lastName}
                 />
-              ) : null}
-
-              {!isEdit ? (
+              ) : (
                 <button
                   className="edit-button"
                   onClick={() => setIsEdit(!isEdit)}
                 >
                   Edit Name
                 </button>
-              ) : null}
+              )}
             </div>
             <h2 className="sr-only">Accounts</h2>
             {accountData.map(({ id, title, amount, description }) => (

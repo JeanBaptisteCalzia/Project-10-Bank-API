@@ -19,19 +19,16 @@ function Nav() {
   const dispatch = useDispatch();
 
   const logout = () => {
-    ["token", "name"].forEach((obj) => removeCookie(obj));
-    navigate("/sign-in");
+    removeCookie("token");
+    navigate("/");
   };
 
   useEffect(() => {
     const token = cookies.token;
-
-    if (!token) {
-      navigate("/sign-in");
-    } else {
+    if (token) {
       dispatch(getUserProfile(token));
     }
-  }, [cookies.token, navigate, dispatch, firstName]);
+  }, [cookies.token, dispatch, firstName]);
 
   return (
     <nav className="main-nav">
@@ -57,10 +54,14 @@ function Nav() {
         )}
 
         {cookies.token ? (
-          <NavLink className="main-nav-item" onClick={() => logout()}>
+          <button
+            type="button"
+            className="main-nav-item"
+            onClick={() => logout()}
+          >
             <FontAwesomeIcon icon={faRightFromBracket} />
             Sign Out
-          </NavLink>
+          </button>
         ) : null}
       </div>
     </nav>

@@ -13,6 +13,21 @@
     }
   }
 
+  button {
+    background-color: transparent;
+    border: 0;
+    font-weight: bold;
+    color: #2c3e50;
+
+    svg {
+      height: 1rem;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
   &-item {
     text-decoration: none;
     margin-left: 1.5rem;
